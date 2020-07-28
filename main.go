@@ -4,7 +4,6 @@ import (
 	"encoding/xml"
 	"fmt"
 	"log"
-	"math"
 	"net/http"
 	"os"
 	"strconv"
@@ -96,7 +95,7 @@ func main() {
 				continue
 			}
 
-			im.Timestamp = pm.Timestamp
+			im.Timestamp = pm.Timestamp.UTC()
 			im.Description = pm.Description
 
 			for _, v := range pm.Data {
@@ -121,7 +120,7 @@ func main() {
 				Lat:       im.Latitude,
 				Lon:       im.Longitude,
 				Course:    im.Course,
-				Speed:     math.Round(im.Velocity/1.852*10) / 10,
+				Speed:     im.Velocity / 1.852,
 				Timestamp: im.Timestamp.UTC(),
 			}
 
